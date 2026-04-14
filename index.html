@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EME CV Maker | ATS-Compliant CV Creator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            background: #5a67d8;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        .feature {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .status {
+            background: #48bb78;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="badge">🚀 ATS-Compliant</div>
+        <h1>📄 EME CV Maker</h1>
+        <p>Create professional, ATS-friendly resumes that get past automated screening systems</p>
+        
+        <div>
+            <a href="http://127.0.0.1:5000" class="btn">✨ Launch CV Maker</a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <strong>✅ ATS-Optimized</strong>
+                <p>Standard fonts, single-column layout, machine-readable</p>
+            </div>
+            <div class="feature">
+                <strong>✅ Document Upload</strong>
+                <p>Certified ID & Proof of Residence storage</p>
+            </div>
+            <div class="feature">
+                <strong>✅ PDF Export</strong>
+                <p>Download your CV instantly</p>
+            </div>
+            <div class="feature">
+                <strong>✅ Admin Dashboard</strong>
+                <p>View all submissions</p>
+            </div>
+        </div>
+        
+        <div class="status">
+            ⚡ Live Demo: Application running locally at http://127.0.0.1:5000
+        </div>
+        
+        <p style="margin-top: 30px; color: #666;">
+            <a href="https://github.com/fullomyself/CV_Maker_Bot" style="color: #667eea;">View on GitHub</a>
+        </p>
+    </div>
+</body>
+</html>
