@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EME CV Maker - Create ATS-Compliant CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .form-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .entry-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+        }
+        
+        .btn-secondary {
+            background: #48bb78;
+        }
+        
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+        
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fc8181;
+        }
+        
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 EME ATS-Compliant CV Maker</h1>
+        <div class="subtitle">Create a professional CV that passes automated screening systems</div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form action="/create_cv" method="POST" enctype="multipart/form-data">
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h2>📋 Personal Information</h2>
+                <div class="form-group">
+                    <label class="required">Full Name</label>
+                    <input type="text" name="full_name" required>
+                </div>
+                <div class="form-group">
+                    <label class="required">Email Address</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="address" placeholder="City, Country">
+                </div>
+                <div class="form-group">
+                    <label>LinkedIn URL</label>
+                    <input type="text" name="linkedin" placeholder="https://linkedin.com/in/username">
+                </div>
+                <div class="form-group">
+                    <label>Portfolio/GitHub</label>
+                    <input type="text" name="portfolio">
+                </div>
+            </div>
+            
+            <!-- Professional Summary -->
+            <div class="form-section">
+                <h2>✍ Professional Summary</h2>
+                <div class="form-group">
+                    <textarea name="professional_summary" placeholder="Write a brief summary of your professional experience, key achievements, and career goals..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Work Experience -->
+            <div class="form-section">
+                <h2>💼 Work Experience</h2>
+                <div id="experience-container">
+                    <div class="entry-card">
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            <input type="text" name="job_title[]" placeholder="e.g., Senior Software Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" name="company[]" placeholder="e.g., Tech Solutions Inc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="text" name="start_date[]" placeholder="MM/YYYY">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="text" name="end_date[]" placeholder="MM/YYYY or Present">
+                        </div>
+                        <div class="form-group">
+                            <label>Key Responsibilities & Achievements</label>
+                            <textarea name="responsibilities[]" placeholder="List your main responsibilities and achievements..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addExperience()" class="btn-secondary">+ Add Work Experience</button>
+            </div>
+            
+            <!-- Education -->
+            <div class="form-section">
+                <h2>🎓 Education</h2>
+                <div id="education-container">
+                    <div class="entry-card">
+                        <div class="form-group">
+                            <label>Degree/Certificate</label>
+                            <input type="text" name="degree[]" placeholder="e.g., Bachelor of Science in Computer Science">
+                        </div>
+                        <div class="form-group">
+                            <label>Institution</label>
+                            <input type="text" name="institution[]" placeholder="e.g., University of Cape Town">
+                        </div>
+                        <div class="form-group">
+                            <label>Graduation Year</label>
+                            <input type="text" name="grad_year[]" placeholder="YYYY">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addEducation()" class="btn-secondary">+ Add Education</button>
+            </div>
+            
+            <!-- Skills -->
+            <div class="form-section">
+                <h2>⚙ Skills</h2>
+                <div class="form-group">
+                    <label>Technical & Professional Skills</label>
+                    <input type="text" name="skills" placeholder="Python, Project Management, Data Analysis, SQL, JavaScript... (comma-separated)">
+                    <small>Separate skills with commas</small>
+                </div>
+            </div>
+            
+            <!-- Certifications -->
+            <div class="form-section">
+                <h2>📜 Certifications</h2>
+                <div id="certification-container">
+                    <div class="entry-card">
+                        <div class="form-group">
+                            <label>Certification Name</label>
+                            <input type="text" name="cert_name[]" placeholder="e.g., AWS Certified Solutions Architect">
+                        </div>
+                        <div class="form-group">
+                            <label>Issuing Organization</label>
+                            <input type="text" name="cert_issuer[]" placeholder="e.g., Amazon Web Services">
+                        </div>
+                        <div class="form-group">
+                            <label>Year Earned</label>
+                            <input type="text" name="cert_year[]" placeholder="YYYY">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addCertification()" class="btn-secondary">+ Add Certification</button>
+            </div>
+            
+            <!-- Languages -->
+            <div class="form-section">
+                <h2>🌍 Languages</h2>
+                <div class="form-group">
+                    <label>Languages Spoken</label>
+                    <input type="text" name="languages" placeholder="English, Zulu, Afrikaans, Spanish... (comma-separated)">
+                </div>
+            </div>
+            
+            <!-- Document Uploads -->
+            <div class="form-section">
+                <h2>📎 Required Documents</h2>
+                <div class="form-group">
+                    <label class="required">Certified ID (PDF)</label>
+                    <input type="file" name="id_doc" accept=".pdf" required>
+                </div>
+                <div class="form-group">
+                    <label class="required">Valid Proof of Residence (PDF)</label>
+                    <input type="file" name="proof_doc" accept=".pdf" required>
+                </div>
+            </div>
+            
+            <button type="submit">✨ Generate My CV</button>
+            <button type="reset">Clear Form</button>
+        </form>
+    </div>
+    
+    <script>
+        function addExperience() {
+            const container = document.getElementById('experience-container');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'entry-card';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" name="job_title[]" placeholder="e.g., Senior Software Engineer">
+                </div>
+                <div class="form-group">
+                    <label>Company</label>
+                    <input type="text" name="company[]" placeholder="e.g., Tech Solutions Inc.">
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="text" name="start_date[]" placeholder="MM/YYYY">
+                </div>
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="text" name="end_date[]" placeholder="MM/YYYY or Present">
+                </div>
+                <div class="form-group">
+                    <label>Key Responsibilities & Achievements</label>
+                    <textarea name="responsibilities[]" placeholder="List your main responsibilities and achievements..."></textarea>
+                </div>
+            `;
+            container.appendChild(newEntry);
+        }
+        
+        function addEducation() {
+            const container = document.getElementById('education-container');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'entry-card';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label>Degree/Certificate</label>
+                    <input type="text" name="degree[]" placeholder="e.g., Bachelor of Science in Computer Science">
+                </div>
+                <div class="form-group">
+                    <label>Institution</label>
+                    <input type="text" name="institution[]" placeholder="e.g., University of Cape Town">
+                </div>
+                <div class="form-group">
+                    <label>Graduation Year</label>
+                    <input type="text" name="grad_year[]" placeholder="YYYY">
+                </div>
+            `;
+            container.appendChild(newEntry);
+        }
+        
+        function addCertification() {
+            const container = document.getElementById('certification-container');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'entry-card';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label>Certification Name</label>
+                    <input type="text" name="cert_name[]" placeholder="e.g., AWS Certified Solutions Architect">
+                </div>
+                <div class="form-group">
+                    <label>Issuing Organization</label>
+                    <input type="text" name="cert_issuer[]" placeholder="e.g., Amazon Web Services">
+                </div>
+                <div class="form-group">
+                    <label>Year Earned</label>
+                    <input type="text" name="cert_year[]" placeholder="YYYY">
+                </div>
+            `;
+            container.appendChild(newEntry);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Generated - EME CV Maker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+        }
+        
+        .btn-secondary {
+            background: #48bb78;
+        }
+        
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+        
+        .tips {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .tips h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .tips ul {
+            margin-left: 20px;
+            color: #666;
+        }
+        
+        .tips li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>CV Generated Successfully!</h1>
+        <div class="message">
+            Thank you, <strong>{{ user_name }}</strong>!<br>
+            Your ATS-compliant CV has been created and is ready for download.
+        </div>
+        
+        <a href="/download_cv/{{ cv_filename }}" class="btn">📄 Download My CV (PDF)</a>
+        <a href="/" class="btn btn-secondary">➕ Create Another CV</a>
+        
+        <div class="tips">
+            <h3>💡 ATS Tips for Your CV</h3>
+            <ul>
+                <li>✅ Your CV uses standard fonts (Helvetica) - ATS-friendly</li>
+                <li>✅ Simple, single-column layout - easily parsable</li>
+                <li>✅ No graphics or images that could confuse ATS</li>
+                <li>💡 Customize keywords for each job application</li>
+                <li>💡 Save as PDF for best compatibility</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
